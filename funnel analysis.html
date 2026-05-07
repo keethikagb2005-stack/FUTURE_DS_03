@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Marketing Funnel Dashboard</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 95%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            width: 220px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card h2 {
+            color: #0d6efd;
+        }
+
+        .chart-box {
+            background: white;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .recommendation-box {
+            background: white;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        ul li {
+            padding: 8px;
+            font-size: 17px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Marketing Funnel & Conversion Performance Dashboard</h1>
+        <p>Internship Project using Python Flask + HTML</p>
+    </div>
+
+    <div class="container">
+
+        <!-- KPI Cards -->
+
+        <div class="card-container">
+
+            <div class="card">
+                <h3>Total Visitors</h3>
+                <h2>{{ total_visitors }}</h2>
+            </div>
+
+            <div class="card">
+                <h3>Total Leads</h3>
+                <h2>{{ total_leads }}</h2>
+            </div>
+
+            <div class="card">
+                <h3>Qualified Leads</h3>
+                <h2>{{ total_qualified }}</h2>
+            </div>
+
+            <div class="card">
+                <h3>Opportunities</h3>
+                <h2>{{ total_opportunities }}</h2>
+            </div>
+
+            <div class="card">
+                <h3>Total Customers</h3>
+                <h2>{{ total_customers }}</h2>
+            </div>
+
+            <div class="card">
+                <h3>Overall Conversion</h3>
+                <h2>{{ overall_conversion }}%</h2>
+            </div>
+
+        </div>
+
+        <!-- Funnel Analysis -->
+
+        <div class="chart-box">
+            <h2>Marketing Funnel Analysis</h2>
+            <img src="{{ url_for('static', filename='funnel_chart.png') }}">
+        </div>
+
+        <!-- Channel Performance -->
+
+        <div class="chart-box">
+            <h2>Channel Performance Analysis</h2>
+            <img src="{{ url_for('static', filename='channel_performance.png') }}">
+        </div>
+
+        <!-- Conversion Rate -->
+
+        <div class="chart-box">
+            <h2>Conversion Rate by Channel</h2>
+            <img src="{{ url_for('static', filename='conversion_rate.png') }}">
+        </div>
+
+        <!-- CAC -->
+
+        <div class="chart-box">
+            <h2>Customer Acquisition Cost</h2>
+            <img src="{{ url_for('static', filename='cac_chart.png') }}">
+        </div>
+
+        <!-- Drop-Off Insights -->
+
+        <div class="recommendation-box">
+
+            <h2>Key Funnel Drop-Off Insights</h2>
+
+            <ul>
+                <li>Visitor to Lead Drop-Off : {{ drop_visitor_lead }}</li>
+                <li>Lead to Qualified Lead Drop-Off : {{ drop_lead_qualified }}</li>
+                <li>Qualified Lead to Opportunity Drop-Off : {{ drop_qualified_opportunity }}</li>
+                <li>Opportunity to Customer Drop-Off : {{ drop_opportunity_customer }}</li>
+            </ul>
+
+        </div>
+
+        <!-- Best & Worst Channel -->
+
+        <div class="recommendation-box">
+
+            <h2>Channel Insights</h2>
+
+            <p>
+                <strong>Best Performing Channel:</strong>
+                {{ best_channel }} with {{ best_conversion }}% conversion
+            </p>
+
+            <p>
+                <strong>Lowest Performing Channel:</strong>
+                {{ worst_channel }} with {{ worst_conversion }}% conversion
+            </p>
+
+        </div>
+
+        <!-- Recommendations -->
+
+        <div class="recommendation-box">
+
+            <h2>Actionable Recommendations</h2>
+
+            <ul>
+                {% for item in recommendations %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+        <!-- Data Table -->
+
+        <div class="recommendation-box">
+
+            <h2>Detailed Marketing Data</h2>
+
+            {{ tables|safe }}
+
+        </div>
+
+    </div>
+
+</body>
+</html>
